@@ -1,5 +1,7 @@
+import { ethers } from "hardhat";
+
 const main = async () => {
-    const RayCastingVerifier = await hre.ethers.getContractFactory("RayCastingVerifier");
+    const RayCastingVerifier = await ethers.getContractFactory("RayCastingVerifier");
     const rayCastingVerifier = await RayCastingVerifier.deploy();
     console.log("RayCastingVerifier Contract deployed to:", rayCastingVerifier.address);
 
