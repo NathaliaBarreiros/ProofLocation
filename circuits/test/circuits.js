@@ -211,7 +211,8 @@ describe("RayCasting circuit", function () {
   it("Should generate the witness successfully for a point on the polygon edge", async function () {
     let input = {
       n: 6,
-      point: [3, 3],
+      // point: [3, 3],
+      point: [5, 1],
       polygon: [
         [1, 1],
         [5, 1],

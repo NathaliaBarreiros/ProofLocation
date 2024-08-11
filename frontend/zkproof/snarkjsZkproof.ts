@@ -1,6 +1,10 @@
 import { groth16 } from "snarkjs";
 
-export async function exportCallDataGroth16(input: { point: number[], polygon: number[][] }, wasmPath: string, zkeyPath: string) {
+export async function exportCallDataGroth16(
+  input: {n: number, point: number[], polygon: number[][] }, 
+  wasmPath: string, 
+  zkeyPath: string
+) {
 
   // 1. Genera la prueba ZK basada en tus entradas y circuito.
   const { proof: _proof, publicSignals: _publicSignals } =

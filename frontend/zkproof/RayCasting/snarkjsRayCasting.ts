@@ -1,7 +1,12 @@
 import { exportCallDataGroth16 } from "../snarkjsZkproof";
 
-export async function rayCastingCalldata(point: [number, number], polygon: number[][]) {
+export async function rayCastingCalldata(
+  n: number,
+  point: [number, number], 
+  polygon: number[][]
+) {
   const input = {
+    n: n,
     point: point,
     polygon: polygon
   };
@@ -11,8 +16,8 @@ export async function rayCastingCalldata(point: [number, number], polygon: numbe
   try {
     dataResult = await exportCallDataGroth16(
       input,
-      "../../public/zkproof/RayCasting.wasm",
-      "../../public/zkproof/RayCasting_final.zkey"
+      "/zkproof/RayCasting.wasm",
+      "/zkproof/RayCasting_final.zkey"
     );
 
     console.log("Calldata snarkjs:", dataResult)
