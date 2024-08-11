@@ -1,8 +1,7 @@
 import { exportCallDataGroth16 } from "../snarkjsZkproof";
 
-export async function rayCastingCalldata(n, point, polygon) {
+export async function rayCastingCalldata(point, polygon) {
   const input = {
-    n: n,
     point: point,
     polygon: polygon
   };
