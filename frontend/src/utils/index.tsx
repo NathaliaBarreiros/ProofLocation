@@ -1,8 +1,10 @@
+// Define la estructura de una coordenada con latitud y longitud
 interface Coordinate {
   lat: number;
   lng: number;
 }
 
+// Define la estructura de un polígono con cuatro esquinas específicas
 interface Polygon {
   topLeft: Coordinate;
   topRight: Coordinate;
@@ -65,4 +67,81 @@ export function transformSingleCoordinate(coordinate: Coordinate, polygon: Polyg
 
   // Transform the coordinate
   return traslatedCoordinate as [number, number];
+}
+
+// Constante que representa el máximo entero seguro en JavaScript
+// Usada para limitar los valores discretizados
+const MAX_SAFE_INTEGER = Math.pow(2, 52) - 1;
+
+// Función para discretizar un valor numérico
+// Redondea al entero superior y limita al máximo entero seguro
+const discretizar = (valor: number): number =>
+    Math.min(Math.ceil(valor), MAX_SAFE_INTEGER);
+
+// Función para encontrar los valores mínimos de latitud y longitud
+// en un conjunto de coordenadas
+const encontrarMinimos = (coordenadas: Coordinate[]): [number, number] => {
+    const [minLat, minLng] = coordenadas.reduce(
+        ([minLat, minLng], { lat, lng }) => [
+            Math.min(minLat, lat),
+            Math.min(minLng, lng)
+        ],
+        [Infinity, Infinity]
+    );
+    return [minLat, minLng];
+};
+
+// Función para calcular el desplazamiento necesario
+// para hacer un valor positivo
+const calcularDesplazamiento = (minimo: number): number =>
+    minimo < 0 ? Math.abs(minimo) : 0;
+
+// Función para transformar una coordenada
+// aplicando desplazamiento y discretización
+const transformarCoordenada = (
+    { lat, lng }: Coordinate,
+    desplazamientoLat: number,
+    desplazamientoLng: number
+): [number, number] => [
+    discretizar(lng + desplazamientoLng),
+    discretizar(lat + desplazamientoLat)
+];
+
+// Función principal exportada para transformar el polígono y la coordenada adicional
+export function transformPolygonPoint(
+    poligono: Polygon,
+    coordenada: Coordinate
+): { poligonoTransformado: number[][], coordenadaTransformada: number[] } {
+    // Extrae las coordenadas del polígono en un array
+    const coordenadasPoligono = [
+        poligono.topLeft,
+        poligono.topRight,
+        poligono.bottomLeft,
+        poligono.bottomRight
+    ];
+    
+    // Combina las coordenadas del polígono y la coordenada adicional
+    const todasLasCoordenadas = [...coordenadasPoligono, coordenada];
+
+    // Encuentra los valores mínimos de latitud y longitud
+    const [minLat, minLng] = encontrarMinimos(todasLasCoordenadas);
+
+    // Calcula los desplazamientos necesarios para hacer todos los valores positivos
+    const desplazamientoLat = calcularDesplazamiento(minLat);
+    const desplazamientoLng = calcularDesplazamiento(minLng);
+
+    // Transforma las coordenadas del polígono
+    const poligonoTransformado = coordenadasPoligono.map(coord =>
+        transformarCoordenada(coord, desplazamientoLat, desplazamientoLng)
+    );
+
+    // Transforma la coordenada adicional
+    const coordenadaTransformada = transformarCoordenada(
+        coordenada,
+        desplazamientoLat,
+        desplazamientoLng
+    );
+
+    // Retorna el resultado de la transformación
+    return { poligonoTransformado, coordenadaTransformada };
 }

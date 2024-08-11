@@ -6,12 +6,15 @@ import './Map.css';
 
 const BlueBox = ({ bounds }: any) => {
   const { topLeft, topRight, bottomLeft, bottomRight } = bounds;
+  
+  const formatCoord = (coord: number) => coord.toFixed(6);
+
   return (
     <div className="blue-box">
-      <div className="corner top-left">{`Lat: ${topLeft.lat}, Lng: ${topLeft.lng}`}</div>
-      <div className="corner top-right">{`Lat: ${topRight.lat}, Lng: ${topRight.lng}`}</div>
-      <div className="corner bottom-left">{`Lat: ${bottomLeft.lat}, Lng: ${bottomLeft.lng}`}</div>
-      <div className="corner bottom-right">{`Lat: ${bottomRight.lat}, Lng: ${bottomRight.lng}`}</div>
+      <div className="corner top-left">{`Lat: ${formatCoord(topLeft.lat)}, Lng: ${formatCoord(topLeft.lng)}`}</div>
+      <div className="corner top-right">{`Lat: ${formatCoord(topRight.lat)}, Lng: ${formatCoord(topRight.lng)}`}</div>
+      <div className="corner bottom-left">{`Lat: ${formatCoord(bottomLeft.lat)}, Lng: ${formatCoord(bottomLeft.lng)}`}</div>
+      <div className="corner bottom-right">{`Lat: ${formatCoord(bottomRight.lat)}, Lng: ${formatCoord(bottomRight.lng)}`}</div>
     </div>
   );
 };
@@ -45,8 +48,8 @@ const Map = () => {
   return (
     <div>
       <MapContainer
-        center={[0, 0]}
-        zoom={2}
+        center={[-2.9001, -79.0059]}
+        zoom={13}
         style={{ height: '650px', width: '1000px' }}
         className="map-container"
       >

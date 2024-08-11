@@ -4,7 +4,7 @@ import { VERIFIER_ABI, VERIFIER_ADDRESS } from '../../constants';
 import { rayCastingCalldata } from '../../zkproof/RayCasting/snarkjsRayCasting';
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
-import { transformCoordinates, transformSingleCoordinate } from '../utils';
+import { transformCoordinates, transformSingleCoordinate, transformPolygonPoint } from '../utils';
 
 interface Ethereum extends ethers.Eip1193Provider {
   request(args: { method: string; params?: readonly unknown[] | object }): Promise<unknown>;
@@ -104,19 +104,35 @@ function Proove() {
     setError(null);
 
     try {
-      const n = 6; // Number of vertices in the polygon
+      const n = 4; // Number of vertices in the polygon
       const point = {lat: latitude, lng: longitude}; // Example point, you might want to use latitude and longitude here
       const validPoint = transformSingleCoordinate(point, polygon);
       const validPolygon = transformCoordinates(point, polygon);
-      const paddedPolygon = [...validPolygon, ...Array(12 - validPolygon.length).fill([0, 0])]
-      const callData = await rayCastingCalldata(n, validPoint, paddedPolygon) as CallData;
-      console.log("Generated callData:", callData);
 
-      if (callData) {
-        const a = callData.a.map(x => BigInt(x).toString());
-        const b = callData.b.map(row => row.map(x => BigInt(x).toString()));
-        const c = callData.c.map(x => BigInt(x).toString());
-        const Input = callData.Input.map(x => BigInt(x).toString());
+      const res = transformPolygonPoint(polygon, point);
+
+      const transformedPolygon = res.poligonoTransformado;
+      const transformedPoint = res.coordenadaTransformada;
+
+      const validTransformedPoint : [number, number] = [transformedPoint[0], transformedPoint[1]];
+
+      console.log("Polígono transformado:", res.poligonoTransformado);
+      console.log("Coordenada transformada:", res.coordenadaTransformada);  
+
+      console.log("polygon is: ", polygon);
+      const paddedPolygonList = [...transformedPolygon, ...Array(12 - transformedPolygon.length).fill([0, 0])];
+      const validCalldata = await rayCastingCalldata(n, validTransformedPoint, paddedPolygonList) as CallData;
+      console.log("Generated validCallData:", validCalldata);
+
+      // const paddedPolygon = [...validPolygon, ...Array(12 - validPolygon.length).fill([0, 0])]
+      // const callData = await rayCastingCalldata(n, validPoint, paddedPolygon) as CallData;
+      // console.log("Generated callData:", callData);
+
+      if (validCalldata) {
+        const a = validCalldata.a.map(x => BigInt(x).toString());
+        const b = validCalldata.b.map(row => row.map(x => BigInt(x).toString()));
+        const c = validCalldata.c.map(x => BigInt(x).toString());
+        const Input = validCalldata.Input.map(x => BigInt(x).toString());
 
         console.log('Sending to contract:', { a, b, c, Input });
 
@@ -128,9 +144,29 @@ function Proove() {
           pointIsInside
         });
 
-        console.log("Proof is valid:", proofIsValid);
-        console.log("Point is inside polygon:", pointIsInside);
+        console.log("Proof is valid?:", proofIsValid);
+        console.log("Point is inside polygon?:", pointIsInside);
       }
+      // 
+      // if (callData) {
+      //   const a = callData.a.map(x => BigInt(x).toString());
+      //   const b = callData.b.map(row => row.map(x => BigInt(x).toString()));
+      //   const c = callData.c.map(x => BigInt(x).toString());
+      //   const Input = callData.Input.map(x => BigInt(x).toString());
+
+      //   console.log('Sending to contract:', { a, b, c, Input });
+
+      //   const proofIsValid = await contract.verifyProof(a, b, c, Input);
+      //   const pointIsInside = Input[0] === "1";
+
+      //   setVerificationResult({
+      //     proofIsValid,
+      //     pointIsInside
+      //   });
+
+      //   console.log("Proof is valid?:", proofIsValid);
+      //   console.log("Point is inside polygon?:", pointIsInside);
+      // }
     } catch (error) {
       console.error("Error during proof generation or verification:", error);
       setError("Error proving location. Please try again.");
