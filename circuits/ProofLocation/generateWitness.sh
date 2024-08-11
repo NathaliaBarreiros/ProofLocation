@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variable to store the name of the circuit
-CIRCUIT=RayCasting2
+CIRCUIT=RayCasting
 
 # In case there is a circuit name as input
 if [ "$1" ]; then

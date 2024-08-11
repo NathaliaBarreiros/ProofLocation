@@ -120,7 +120,7 @@ const { assert } = require("chai");
 const wasm_tester = require("circom_tester").wasm;
 const path = require("path");
 
-describe("RayCasting2 circuit", function () {
+describe("RayCasting circuit", function () {
   let raycasting2Circuit;
 
   before(async function () {
@@ -132,7 +132,7 @@ describe("RayCasting2 circuit", function () {
     console.log("Current directory:", currentDir);
 
     // Construir la ruta al archivo Circom
-    const circomPath = path.join(currentDir, "..", "ProofLocation", "RayCasting2.circom");
+    const circomPath = path.join(currentDir, "..", "ProofLocation", "RayCasting.circom");
     console.log("Circom file path:", circomPath);
 
     try {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variable to store the name of the circuit
-CIRCUIT=RayCasting2
+CIRCUIT=RayCasting
 
 # Variable to store the number of the ptau file
 PTAU=14
