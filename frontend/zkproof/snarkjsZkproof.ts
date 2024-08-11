@@ -1,6 +1,6 @@
 import { groth16 } from "snarkjs";
 
-export async function exportCallDataGroth16(input, wasmPath, zkeyPath) {
+export async function exportCallDataGroth16(input: any, wasmPath: any, zkeyPath: any) {
   const { proof: _proof, publicSignals: _publicSignals } =
     await groth16.fullProve(input, wasmPath, zkeyPath);
 
