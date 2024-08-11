@@ -212,7 +212,7 @@ describe("RayCasting circuit", function () {
     let input = {
       n: 6,
       // point: [3, 3],
-      point: [5, 1],
+      point: [3, 3],
       polygon: [
         [1, 1],
         [5, 1],

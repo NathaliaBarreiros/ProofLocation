@@ -125,7 +125,7 @@ function App() {
 
     try {
       const n = 6; // Number of vertices in the polygon
-      const point: Point = [100, 2]; // Example point, you might want to use latitude and longitude here
+      const point: Point = [2, 2]; // Example point, you might want to use latitude and longitude here
 
       const callData = await rayCastingCalldata(n, point, polygon) as CallData;
       console.log("Generated callData:", callData);
