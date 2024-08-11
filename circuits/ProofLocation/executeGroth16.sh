@@ -54,12 +54,14 @@ echo "----- Generate Solidity verifier -----"
 # Generate a Solidity verifier that allows verifying proofs on Ethereum blockchain
 snarkjs zkey export solidityverifier ${CIRCUIT}_final.zkey ${CIRCUIT}Verifier.sol
 
+#macOS command
 # Update the solidity version in the Solidity verifier
 sed -i '' 's/0.6.11;/0.8.4;/g' ${CIRCUIT}Verifier.sol
 
 # Update the contract name in the Solidity verifier
 sed -i '' "s/contract Verifier/contract ${CIRCUIT}Verifier/g" ${CIRCUIT}Verifier.sol
 
+## Linux command
 # # Update the solidity version in the Solidity verifier
 # sed -i 's/0.6.11;/0.8.4;/g' ${CIRCUIT}Verifier.sol
 # # Update the contract name in the Solidity verifier
