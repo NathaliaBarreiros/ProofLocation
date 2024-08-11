@@ -1,19 +1,24 @@
 import { ethers } from "hardhat";
+import { BigNumberish } from "ethers";
 
 const main = async () => {
+
     const RayCastingVerifier = await ethers.getContractFactory("RayCastingVerifier");
     const rayCastingVerifier = await RayCastingVerifier.deploy();
-    console.log("RayCastingVerifier Contract deployed to:", rayCastingVerifier.address);
+    await rayCastingVerifier.waitForDeployment();
+    // console.log("RayCastingVerifier Contract deployed to:", rayCastingVerifier.getAddress());
+    const deployedAddress = await rayCastingVerifier.getAddress(); // Espera a que se resuelva la promesa
+    console.log("RayCastingVerifier Contract deployed to:", deployedAddress);
 
-    let calldataRaycasting = [
+    let calldataRaycasting : (string[] | string[][])[] = [
         // change value for this proof, to get FALSE
-        // [
-        //     "0x21d1a7ba7fc113d01dcc70096c2a5df7066c1c9c5b4c18ef993c5c9d7c51ebff", "0x1c3d88d4b594e06b27661e1451d59a92e16478350225d8acbf63b650d9a63788"
-        // ],
-        // original value for this proof, get TRUE
         [
-            "0x21d1a7ba7fc113d01dcc70096c2a5df7066c1c9c5b4c18ef993c5c9d7c51ebff", "0x1c3d88d4b594e06b27661e1451d59a92e16478350225d8acbf63b650d9a63707"
+            "0x21d1a7ba7fc113d01dcc70096c2a5df7066c1c9c5b4c18ef993c5c9d7c51ebff", "0x1c3d88d4b594e06b27661e1451d59a92e16478350225d8acbf63b650d9a63788"
         ],
+        // original value for this proof, get TRUE
+        // [
+        //     "0x21d1a7ba7fc113d01dcc70096c2a5df7066c1c9c5b4c18ef993c5c9d7c51ebff", "0x1c3d88d4b594e06b27661e1451d59a92e16478350225d8acbf63b650d9a63707"
+        // ],
         [
             [
                 "0x1fcc73f4ba3166e3a917210606508b5edd1c9e562d60d6f6e4459769329e0484", "0x00dbde69bd04883754978b62e58d61370413125fdb304d0c25b5b5eb2b9257c0"
@@ -29,14 +34,32 @@ const main = async () => {
     ];
 
     // Call the function.
-    let result = await rayCastingVerifier.verifyProof(
-        calldataRaycasting[0],
-        calldataRaycasting[1],
-        calldataRaycasting[2],
-        calldataRaycasting[3]
-    );
+    // let result = await rayCastingVerifier.verifyProof(
+    //     calldataRaycasting[0],
+    //     calldataRaycasting[1],
+    //     calldataRaycasting[2],
+    //     calldataRaycasting[3]
+    // );
 
-    console.log("Result", result);
+    // console.log("Result", result);
+
+
+    // Asegurarse de que cada parte de calldataRaycasting esté en el formato correcto
+    let _pA: [BigNumberish, BigNumberish] = [calldataRaycasting[0][0], calldataRaycasting[0][1]] as [BigNumberish, BigNumberish];
+    let _pB: [[BigNumberish, BigNumberish], [BigNumberish, BigNumberish]] = [
+        [calldataRaycasting[1][0][0], calldataRaycasting[1][0][1]],
+        [calldataRaycasting[1][1][0], calldataRaycasting[1][1][1]]
+    ] as [[BigNumberish, BigNumberish], [BigNumberish, BigNumberish]];
+    let _pC: [BigNumberish, BigNumberish] = [calldataRaycasting[2][0], calldataRaycasting[2][1]] as [BigNumberish, BigNumberish];
+    let _pubSignals: BigNumberish[] = calldataRaycasting[3] as BigNumberish[];
+
+    // Llamar a verifyProof con los tipos correctos
+    try {
+        let result = await rayCastingVerifier.verifyProof(_pA, _pB, _pC, _pubSignals);
+        console.log("Verificación completada:", result);
+    } catch (error) {
+        console.error("Error durante la verificación:", error);
+    }
 };
 
 const runMain = async () => {
