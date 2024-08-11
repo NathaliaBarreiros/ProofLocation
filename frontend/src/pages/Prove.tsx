@@ -48,6 +48,8 @@ function Prove() {
 
   const [hasProvedGeo, setHasProvedGeo] = useState(false);
   const [hasProvedManual, setHasProvedManual] = useState(false);
+
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
   
   const infuraProvider = useMemo(() => {
     const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID;
@@ -77,6 +79,8 @@ function Prove() {
           }
 
           const newSigner = await provider.getSigner();
+          const address = await newSigner.getAddress();
+          setWalletAddress(address);
 
           const newContract = new ethers.Contract(VERIFIER_ADDRESS, VERIFIER_ABI, newSigner);
           setContract(newContract);
@@ -265,6 +269,27 @@ function Prove() {
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+      {walletAddress && (
+        <div style={{
+          position: 'absolute',
+          top: '10px',
+          right: '10px',
+          padding: '10px 15px',
+          borderRadius: '20px',
+          display: 'flex',
+          alignItems: 'center',
+          fontSize: '0.9em',
+          color: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(5px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
+        }}>
+          <span role="img" aria-label="wallet" style={{ marginRight: '10px', fontSize: '1.2em' }}>👛</span>
+          <span style={{ marginRight: '10px' }}>Wallet:</span>
+          {`${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`}
+        </div>
+      )}
+
       <h1>RayCasting Proof Verification on Sepolia</h1>
       <h2>Latitude: {latitude}</h2>
       <h2>Longitude: {longitude}</h2>
