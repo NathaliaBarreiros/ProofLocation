@@ -5,7 +5,6 @@ const nextConfig = {
     if (!options.isServer) {
       config.resolve.fallback.fs = false;
     }
-    config.experiments = { asyncWebAssembly: true };
     return config;
   },
 };

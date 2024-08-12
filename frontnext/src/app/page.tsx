@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useMemo, useState } from 'react';
 import { ethers } from 'ethers';
 import { VERIFIER_ABI, VERIFIER_ADDRESS } from '../../constants';
