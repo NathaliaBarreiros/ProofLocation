@@ -18,8 +18,8 @@ export function transformCoordinates(polygon: Polygon): Polygon {
   const lngs = [topLeft.lng, topRight.lng, bottomLeft.lng, bottomRight.lng];
 
   // Find the most negative latitude and longitude
-  const mostNegativeLat = Math.min(...lats);
-  const mostNegativeLng = Math.min(...lngs);
+  const mostNegativeLat = Math.min(0,...lats);
+  const mostNegativeLng = Math.min(0,...lngs);
 
   // Transform the coordinates
   return {
