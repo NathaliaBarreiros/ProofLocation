@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux'
+import { setBounds as setStoreBounds } from '../store'
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import './Map.css';
 
@@ -15,6 +17,7 @@ const BlueBox = ({ bounds }: any) => {
 };
 
 const Map = () => {
+  const dispatch = useDispatch();
   const [bounds, setBounds] = useState({
     topLeft: { lat: 0, lng: 0 },
     topRight: { lat: 0, lng: 0 },
@@ -26,12 +29,14 @@ const Map = () => {
     const map = useMapEvents({
       moveend: () => {
         const bounds = map.getBounds();
-        setBounds({
+        const newBounds = {
           topLeft: { lat: bounds.getNorthWest().lat, lng: bounds.getNorthWest().lng },
           topRight: { lat: bounds.getNorthEast().lat, lng: bounds.getNorthEast().lng },
           bottomLeft: { lat: bounds.getSouthWest().lat, lng: bounds.getSouthWest().lng },
           bottomRight: { lat: bounds.getSouthEast().lat, lng: bounds.getSouthEast().lng }
-        });
+        }
+        setBounds(newBounds);
+        dispatch(setStoreBounds(newBounds))
       }
     });
     return null;
