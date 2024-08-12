@@ -24,20 +24,20 @@ export function transformCoordinates(polygon: Polygon): Polygon {
   // Transform the coordinates
   return {
     topLeft: {
-      lat: topLeft.lat - mostNegativeLat,
-      lng: topLeft.lng - mostNegativeLng,
+      lng: Math.ceil(topLeft.lng - mostNegativeLng),
+      lat: Math.ceil(topLeft.lat - mostNegativeLat),
     },
     topRight: {
-      lat: topRight.lat - mostNegativeLat,
-      lng: topRight.lng - mostNegativeLng,
+      lat: Math.ceil(topRight.lat - mostNegativeLat),
+      lng: Math.ceil(topRight.lng - mostNegativeLng),
     },
     bottomLeft: {
-      lat: bottomLeft.lat - mostNegativeLat,
-      lng: bottomLeft.lng - mostNegativeLng,
+      lat: Math.ceil(bottomLeft.lat - mostNegativeLat),
+      lng: Math.ceil(bottomLeft.lng - mostNegativeLng),
     },
     bottomRight: {
-      lat: bottomRight.lat - mostNegativeLat,
-      lng: bottomRight.lng - mostNegativeLng,
+      lat: Math.ceil(bottomRight.lat - mostNegativeLat),
+      lng: Math.ceil(bottomRight.lng - mostNegativeLng),
     },
   };
 }
@@ -51,7 +51,7 @@ export function transformSingleCoordinate(coordinate: Coordinate): Coordinate {
 
   // Transform the coordinate
   return {
-    lat: lat - mostNegativeLat,
-    lng: lng - mostNegativeLng,
+    lat: Math.ceil(lat - mostNegativeLat),
+    lng: Math.ceil(lng - mostNegativeLng),
   }
 }
