@@ -11,9 +11,11 @@ export async function rayCastingCalldata(point: [number, number], polygon: numbe
   try {
     dataResult = await exportCallDataGroth16(
       input,
-      "/zkproof/RayCasting.wasm",
-      "/zkproof/RayCasting_final.zkey"
+      "../../public/zkproof/RayCasting.wasm",
+      "../../public/zkproof/RayCasting_final.zkey"
     );
+
+    console.log("Calldata snarkjs:", dataResult)
   } catch (error) {
     console.log(error);
     window.alert("Wrong answer");
