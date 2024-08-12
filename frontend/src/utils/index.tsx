@@ -41,3 +41,17 @@ export function transformCoordinates(polygon: Polygon): Polygon {
     },
   };
 }
+
+export function transformSingleCoordinate(coordinate: Coordinate): Coordinate {
+  const { lat, lng } = coordinate
+
+  // Find the most negative latitude and longitude
+  const mostNegativeLat = Math.min(0, lat)
+  const mostNegativeLng = Math.min(0, lng)
+
+  // Transform the coordinate
+  return {
+    lat: lat - mostNegativeLat,
+    lng: lng - mostNegativeLng,
+  }
+}
