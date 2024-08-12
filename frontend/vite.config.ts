@@ -10,6 +10,7 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['snarkjs']
+    include: ['snarkjs'],
+    exclude: ['fs'],
   }
 })

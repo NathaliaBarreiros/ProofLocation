@@ -1,15 +1,14 @@
 import { groth16 } from "snarkjs";
 
-export async function exportCallDataGroth16(input: any, wasmPath: any, zkeyPath: any) {
+export async function exportCallDataGroth16(input: { point: number[], polygon: number[][] }, wasmPath: string, zkeyPath: string) {
   const { proof: _proof, publicSignals: _publicSignals } =
     await groth16.fullProve(input, wasmPath, zkeyPath);
-
   const calldata = await groth16.exportSolidityCallData(_proof, _publicSignals);
 
-  const argv = calldata
+  const argv = calldata 
     .replace(/["[\]\s]/g, "")
     .split(",")
-    .map((x) => BigInt(x).toString());
+    .map((x: string) => BigInt(x).toString());
 
   const a = [argv[0], argv[1]];
   const b = [

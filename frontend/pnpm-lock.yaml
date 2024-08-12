@@ -33,6 +33,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
+      '@types/snarkjs':
+        specifier: ^0.7.8
+        version: 0.7.8
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.1(vite@5.4.0(@types/node@22.2.0)(terser@5.31.5))
@@ -1639,6 +1642,9 @@ packages:
 
   '@types/secp256k1@4.0.6':
     resolution: {integrity: sha512-hHxJU6PAEUn0TP4S/ZOzuTUvJWuZ6eIKeNKb5RBpODvSl6hp1Wrw4s7ATY50rklRCScUDpHzVA/DQdSjJ3UoYQ==}
+
+  '@types/snarkjs@0.7.8':
+    resolution: {integrity: sha512-x37Jsv1vx6I6RMJdfvYEmDUOLYgzYMecwlk13gniDOcN20xLVe9hy9DlQxWeCPirqpDY/jwugQSqCi2RxehU3g==}
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -6696,6 +6702,8 @@ snapshots:
   '@types/secp256k1@4.0.6':
     dependencies:
       '@types/node': 22.2.0
+
+  '@types/snarkjs@0.7.8': {}
 
   '@types/stack-utils@2.0.3': {}
 
