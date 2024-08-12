@@ -13,6 +13,5 @@
   },
   "scripts": {
     "test": "mocha"
-  },
-  "type": "module"
+  }
 }

@@ -1,8 +1,5 @@
-// const { assert } = require("chai");
-// const wasm_tester = require("circom_tester").wasm;
-
-import { assert } from 'chai';
-import { wasm as wasm_tester } from 'circom_tester';
+const { assert } = require("chai");
+const wasm_tester = require("circom_tester").wasm;
 
 describe("RayCasting circuit", function () {
   let raycastingCircuit;
@@ -55,6 +52,21 @@ describe("RayCasting circuit", function () {
     const witness = await raycastingCircuit.calculateWitness(input);
     await raycastingCircuit.assertOut(witness, {isInside: 1});
   });
+
+//   it("Should generate the witness successfully for a point on the polygon edge (in one vertex)", async function () {
+//     let input = {
+//       point: [0, 0],
+//       polygon: [
+//         [0, 0],
+//         [4, 0],
+//         [4, 4],
+//         [0, 4],
+//         [0, 0]
+//       ]
+//     };
+//     const witness = await raycastingCircuit.calculateWitness(input);
+//     await raycastingCircuit.assertOut(witness, {isInside: 0});
+//   });
 
 //   it("Should handle a polygon with incorrect number of vertices", async function () {
 //     let input = {

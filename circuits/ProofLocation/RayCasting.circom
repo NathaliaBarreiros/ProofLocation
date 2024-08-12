@@ -80,4 +80,4 @@ template RayCasting(n) {
 }
 
 // Componente principal
-component main {public [point, polygon]} = RayCasting(5);
+component main {public [polygon]} = RayCasting(5);
