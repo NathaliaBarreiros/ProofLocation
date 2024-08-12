@@ -10,7 +10,7 @@ interface Polygon {
   bottomRight: Coordinate;
 }
 
-export function transformCoordinates(polygon: Polygon): Polygon {
+export function transformCoordinates(polygon: Polygon): number[][] {
   const { topLeft, topRight, bottomLeft, bottomRight } = polygon;
 
   // Extract the latitudes and longitudes
@@ -18,40 +18,37 @@ export function transformCoordinates(polygon: Polygon): Polygon {
   const lngs = [topLeft.lng, topRight.lng, bottomLeft.lng, bottomRight.lng];
 
   // Find the most negative latitude and longitude
-  const mostNegativeLat = Math.min(0,...lats);
-  const mostNegativeLng = Math.min(0,...lngs);
+  const mostNegativeLat = Math.min(0, ...lats);
+  const mostNegativeLng = Math.min(0, ...lngs);
 
   // Transform the coordinates
-  return {
-    topLeft: {
-      lng: Math.ceil(topLeft.lng - mostNegativeLng),
-      lat: Math.ceil(topLeft.lat - mostNegativeLat),
-    },
-    topRight: {
-      lat: Math.ceil(topRight.lat - mostNegativeLat),
-      lng: Math.ceil(topRight.lng - mostNegativeLng),
-    },
-    bottomLeft: {
-      lat: Math.ceil(bottomLeft.lat - mostNegativeLat),
-      lng: Math.ceil(bottomLeft.lng - mostNegativeLng),
-    },
-    bottomRight: {
-      lat: Math.ceil(bottomRight.lat - mostNegativeLat),
-      lng: Math.ceil(bottomRight.lng - mostNegativeLng),
-    },
-  };
+  return [
+    [
+      Math.ceil(topLeft.lng - mostNegativeLng),
+      Math.ceil(topLeft.lat - mostNegativeLat),
+    ],
+    [
+      Math.ceil(topRight.lat - mostNegativeLat),
+      Math.ceil(topRight.lng - mostNegativeLng),
+    ],
+    [
+      Math.ceil(bottomLeft.lat - mostNegativeLat),
+      Math.ceil(bottomLeft.lng - mostNegativeLng),
+    ],
+    [
+      Math.ceil(bottomRight.lat - mostNegativeLat),
+      Math.ceil(bottomRight.lng - mostNegativeLng),
+    ],
+  ];
 }
 
-export function transformSingleCoordinate(coordinate: Coordinate): Coordinate {
-  const { lat, lng } = coordinate
+export function transformSingleCoordinate(coordinate: Coordinate): [number,number] {
+  const { lat, lng } = coordinate;
 
   // Find the most negative latitude and longitude
-  const mostNegativeLat = Math.min(0, lat)
-  const mostNegativeLng = Math.min(0, lng)
+  const mostNegativeLat = Math.min(0, lat);
+  const mostNegativeLng = Math.min(0, lng);
 
   // Transform the coordinate
-  return {
-    lat: Math.ceil(lat - mostNegativeLat),
-    lng: Math.ceil(lng - mostNegativeLng),
-  }
+  return [Math.ceil(lat - mostNegativeLat), Math.ceil(lng - mostNegativeLng)];
 }

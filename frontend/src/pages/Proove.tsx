@@ -3,13 +3,15 @@ import { ethers } from 'ethers';
 import { VERIFIER_ABI, VERIFIER_ADDRESS } from '../../constants';
 import { rayCastingCalldata } from '../../zkproof/RayCasting/snarkjsRayCasting';
 import { JsonRpcSigner } from 'ethers';
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { transformCoordinates, transformSingleCoordinate } from '../utils';
 
 function Proove() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [signer, setSigner] = useState<JsonRpcSigner>();
-
-  const polygon = useMemo(() => [[1,1],[4,1],[5,3],[4,5],[1,5]], []);
+  const polygon = useSelector((state: RootState) => state.map.bounds)
 
   const provider = useMemo(() => {
     return new ethers.JsonRpcProvider('http://localhost:8545');
@@ -29,7 +31,7 @@ function Proove() {
       }
     }
     const proveLocation = async () => {
-      const callData = await rayCastingCalldata([3, 3],  polygon);
+      const callData = await rayCastingCalldata(transformSingleCoordinate({lat: latitude, lng: longitude}), transformCoordinates(polygon) );
       console.log(callData);
       if (callData !== undefined && contract != null){
         const contractRes = await contract.verifyProof(callData?.a, callData?.b, callData?.c, callData.Input);
