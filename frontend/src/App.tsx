@@ -68,10 +68,14 @@ function App() {
 
         if (callData) {
           // Convertir los valores a BigInt
-          const a = callData.a.map(BigInt);
-          const b = callData.b.map(row => row.map(BigInt));
-          const c = callData.c.map(BigInt);
-          const Input = callData.Input.map(BigInt);
+          // const a = callData.a.map(BigInt);
+          // const b = callData.b.map(row => row.map(BigInt));
+          // const c = callData.c.map(BigInt);
+          // const Input = callData.Input.map(BigInt);
+          const a = callData.a.map(x => BigInt(x).toString());
+          const b = callData.b.map(row => row.map(x => BigInt(x).toString()));
+          const c = callData.c.map(x => BigInt(x).toString());
+          const Input = callData.Input.map(x => BigInt(x).toString());
   
           console.log('Sending to contract:', { a, b, c, Input });
   
@@ -90,7 +94,7 @@ function App() {
     
     if (latitude != null && longitude != null){
       getSigner()
-      proveLocation(100,3)
+      proveLocation(3,3)
     }
   }, [latitude, longitude, polygon, contract, provider, signer])
 
