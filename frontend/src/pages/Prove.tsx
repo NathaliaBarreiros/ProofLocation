@@ -10,6 +10,7 @@ import { transformCoordinates, transformSingleCoordinate } from '../utils';
 function Proove() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [message, setMessage] = useState('');
   const [signer, setSigner] = useState<JsonRpcSigner>();
   const polygon = useSelector((state: RootState) => state.map.bounds)
 
@@ -42,6 +43,7 @@ function Proove() {
       if (callData !== undefined && contract != null){
         const contractRes = await contract.verifyProof(callData?.a, callData?.b, callData?.c, callData.Input);
         console.log("Contract res is:", contractRes);
+        setMessage(contractRes ? 'You are in the polygon' : 'You are not in the polygon');
       }
     }
     
@@ -63,6 +65,10 @@ function Proove() {
       <h1>Prove</h1>
       <h2>Latitude: {latitude}</h2>
       <h2>Longitude: {longitude}</h2>
+      { message !== '' ?
+          <h2 style={{fontWeight: 'bold'}}>{message}</h2> :
+          <h2>...proving</h2>
+      }
     </>
   )
 }
