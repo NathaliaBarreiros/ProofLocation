@@ -31,7 +31,13 @@ function Proove() {
       }
     }
     const proveLocation = async () => {
-      const callData = await rayCastingCalldata(transformSingleCoordinate({lat: latitude, lng: longitude}), transformCoordinates(polygon) );
+      console.log("point before is: ", {lat: latitude, lng: longitude});
+      console.log("polygon befores is: ", polygon);
+      const point = transformSingleCoordinate({lat: latitude, lng: longitude}, polygon);
+      const finalPolygon = [...transformCoordinates(polygon), [0,0]]
+      console.log("point is:", point);
+      console.log("final polygon is:", finalPolygon);
+      const callData = await rayCastingCalldata(point, finalPolygon);
       console.log(callData);
       if (callData !== undefined && contract != null){
         const contractRes = await contract.verifyProof(callData?.a, callData?.b, callData?.c, callData.Input);
@@ -54,7 +60,7 @@ function Proove() {
 
   return (
     <>
-      <h1>Proove</h1>
+      <h1>Prove</h1>
       <h2>Latitude: {latitude}</h2>
       <h2>Longitude: {longitude}</h2>
     </>

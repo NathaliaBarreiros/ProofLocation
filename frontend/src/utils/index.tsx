@@ -42,12 +42,17 @@ export function transformCoordinates(polygon: Polygon): number[][] {
   ];
 }
 
-export function transformSingleCoordinate(coordinate: Coordinate): [number,number] {
+export function transformSingleCoordinate(coordinate: Coordinate, polygon: Polygon): [number,number] {
   const { lat, lng } = coordinate;
+  const { topLeft, topRight, bottomLeft, bottomRight } = polygon;
 
+  // Extract the latitudes and longitudes
+  const lats = [topLeft.lat, topRight.lat, bottomLeft.lat, bottomRight.lat];
+  const lngs = [topLeft.lng, topRight.lng, bottomLeft.lng, bottomRight.lng];
+  
   // Find the most negative latitude and longitude
-  const mostNegativeLat = Math.min(0, lat);
-  const mostNegativeLng = Math.min(0, lng);
+  const mostNegativeLat = Math.min(0, ...lats);
+  const mostNegativeLng = Math.min(0, ...lngs);
 
   // Transform the coordinate
   return [Math.ceil(lat - mostNegativeLat), Math.ceil(lng - mostNegativeLng)];
