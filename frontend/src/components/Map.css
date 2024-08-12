@@ -1,0 +1,42 @@
+.map-container {
+  position: relative;
+}
+
+.blue-box {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  border: 2px solid rgb(74, 84, 219);
+  background: rgba(0, 0, 255, 0.1);
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.top-left {
+  top: -25px;
+  left: -25px;
+}
+
+.top-right {
+  top: -25px;
+  right: -25px;
+}
+
+.bottom-left {
+  bottom: -25px;
+  left: -25px;
+}
+
+.bottom-right {
+  bottom: -25px;
+  right: -25px;
+}
