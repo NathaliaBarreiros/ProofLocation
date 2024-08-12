@@ -40,7 +40,9 @@ const Map = () => {
   return (
     <div>
       <MapContainer
-        style={{ height: '500px', width: '100%' }}
+        center={[0, 0]}
+        zoom={2}
+        style={{ height: '650px', width: '1000px' }}
         className="map-container"
       >
         <TileLayer
