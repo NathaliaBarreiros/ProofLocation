@@ -39,9 +39,7 @@ function Proove() {
   const [verificationResult, setVerificationResult] = useState<VerificationResult>(null);
   const [error, setError] = useState<string | null>(null);
   const polygon = useSelector((state: RootState) => state.map.bounds)
-  const validPolygon = transformCoordinates(polygon);
-  const paddedPolygon = [...validPolygon, ...Array(12 - validPolygon.length).fill([0, 0])]
-
+  
   const infuraProvider = useMemo(() => {
     const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID;
     if (!infuraProjectId) {
@@ -109,6 +107,8 @@ function Proove() {
       const n = 6; // Number of vertices in the polygon
       const point = {lat: latitude, lng: longitude}; // Example point, you might want to use latitude and longitude here
       const validPoint = transformSingleCoordinate(point, polygon);
+      const validPolygon = transformCoordinates(point, polygon);
+      const paddedPolygon = [...validPolygon, ...Array(12 - validPolygon.length).fill([0, 0])]
       const callData = await rayCastingCalldata(n, validPoint, paddedPolygon) as CallData;
       console.log("Generated callData:", callData);
 
