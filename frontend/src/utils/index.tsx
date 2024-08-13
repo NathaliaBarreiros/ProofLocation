@@ -113,15 +113,18 @@ export function transformPolygonPoint(
     coordenada: Coordinate
 ): { poligonoTransformado: number[][], coordenadaTransformada: number[] } {
     // Extrae las coordenadas del polígono en un array
-    const coordenadasPoligono = [
-        poligono.topLeft,
-        poligono.topRight,
-        poligono.bottomLeft,
-        poligono.bottomRight
-    ];
+    // Multiplicar coordenadas por 1000 (aumenta precisión)
+    const tL: Coordinate = { lat: poligono.topLeft.lat * 1000, lng: poligono.topLeft.lng * 1000}
+    const tR: Coordinate = { lat: poligono.topRight.lat * 1000, lng: poligono.topRight.lng * 1000}
+    const bL: Coordinate = { lat: poligono.bottomLeft.lat * 1000, lng: poligono.bottomLeft.lng * 1000}
+    const bR: Coordinate = { lat: poligono.bottomRight.lat * 1000, lng: poligono.bottomRight.lng * 1000}
+
+    const coordenadaPrecisa = { lat: coordenada.lat * 1000, lng: coordenada.lng * 1000 };
+
+    const coordenadasPoligono = [ tL, tR, bL, bR ];
     
     // Combina las coordenadas del polígono y la coordenada adicional
-    const todasLasCoordenadas = [...coordenadasPoligono, coordenada];
+    const todasLasCoordenadas = [...coordenadasPoligono, coordenadaPrecisa];
 
     // Encuentra los valores mínimos de latitud y longitud
     const [minLat, minLng] = encontrarMinimos(todasLasCoordenadas);
@@ -137,7 +140,7 @@ export function transformPolygonPoint(
 
     // Transforma la coordenada adicional
     const coordenadaTransformada = transformarCoordenada(
-        coordenada,
+        coordenadaPrecisa,
         desplazamientoLat,
         desplazamientoLng
     );
