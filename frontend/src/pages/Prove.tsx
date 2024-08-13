@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { ethers } from 'ethers';
 import { VERIFIER_ABI, VERIFIER_ADDRESS } from '../../constants';
 import { rayCastingCalldata } from '../../zkproof/RayCasting/snarkjsRayCasting';
-import { JsonRpcSigner } from 'ethers';
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 import { transformCoordinates, transformSingleCoordinate } from '../utils';
@@ -35,13 +34,13 @@ type VerificationResult = {
 function Proove() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
-  const [signer, setSigner] = useState<JsonRpcSigner>();
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [verificationResult, setVerificationResult] = useState<VerificationResult>(null);
   const [error, setError] = useState<string | null>(null);
   const polygon = useSelector((state: RootState) => state.map.bounds)
   const validPolygon = transformCoordinates(polygon);
+  const paddedPolygon = [...validPolygon, ...Array(12 - validPolygon.length).fill([0, 0])]
 
   const infuraProvider = useMemo(() => {
     const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID;
@@ -71,7 +70,6 @@ function Proove() {
           }
 
           const newSigner = await provider.getSigner();
-          setSigner(newSigner);
 
           const newContract = new ethers.Contract(VERIFIER_ADDRESS, VERIFIER_ABI, newSigner);
           setContract(newContract);
@@ -111,7 +109,7 @@ function Proove() {
       const n = 6; // Number of vertices in the polygon
       const point = {lat: latitude, lng: longitude}; // Example point, you might want to use latitude and longitude here
       const validPoint = transformSingleCoordinate(point, polygon);
-      const callData = await rayCastingCalldata(n, validPoint, validPolygon) as CallData;
+      const callData = await rayCastingCalldata(n, validPoint, paddedPolygon) as CallData;
       console.log("Generated callData:", callData);
 
       if (callData) {
