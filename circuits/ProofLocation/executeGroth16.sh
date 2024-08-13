@@ -4,7 +4,7 @@
 CIRCUIT=RayCasting
 
 # Variable to store the number of the ptau file
-PTAU=12
+PTAU=14
 
 # In case there is a circuit name as an input
 if [ "$1" ]; then
@@ -28,7 +28,7 @@ fi
 circom ${CIRCUIT}.circom --r1cs --wasm --sym --c
 
 # Generate the witness.wtns
-node ${CIRCUIT}_js/generate_witness.js ${CIRCUIT}_js/${CIRCUIT}.wasm input.json ${CIRCUIT}_js/witness.wtns
+node ${CIRCUIT}_js/generate_witness.js ${CIRCUIT}_js/${CIRCUIT}.wasm input2.json ${CIRCUIT}_js/witness.wtns
 
 echo "----- Generate .zkey file -----"
 # Generate a .zkey file that will contain the proving and verification keys together with all phase 2 contributions
@@ -54,12 +54,14 @@ echo "----- Generate Solidity verifier -----"
 # Generate a Solidity verifier that allows verifying proofs on Ethereum blockchain
 snarkjs zkey export solidityverifier ${CIRCUIT}_final.zkey ${CIRCUIT}Verifier.sol
 
+#macOS command
 # Update the solidity version in the Solidity verifier
 sed -i '' 's/0.6.11;/0.8.4;/g' ${CIRCUIT}Verifier.sol
 
 # Update the contract name in the Solidity verifier
 sed -i '' "s/contract Verifier/contract ${CIRCUIT}Verifier/g" ${CIRCUIT}Verifier.sol
 
+## Linux command
 # # Update the solidity version in the Solidity verifier
 # sed -i 's/0.6.11;/0.8.4;/g' ${CIRCUIT}Verifier.sol
 # # Update the contract name in the Solidity verifier

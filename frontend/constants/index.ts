@@ -1,37 +1,37 @@
-export const VERIFIER_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const VERIFIER_ADDRESS = "0xCdD95B485D2371D9D460487ea3ECd9614a7e33Dc";
 export const VERIFIER_ABI = [
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256[2]",
-        name: "_pA",
-        type: "uint256[2]",
+        "internalType": "uint256[2]",
+        "name": "_pA",
+        "type": "uint256[2]"
       },
       {
-        internalType: "uint256[2][2]",
-        name: "_pB",
-        type: "uint256[2][2]",
+        "internalType": "uint256[2][2]",
+        "name": "_pB",
+        "type": "uint256[2][2]"
       },
       {
-        internalType: "uint256[2]",
-        name: "_pC",
-        type: "uint256[2]",
+        "internalType": "uint256[2]",
+        "name": "_pC",
+        "type": "uint256[2]"
       },
       {
-        internalType: "uint256[13]",
-        name: "_pubSignals",
-        type: "uint256[13]",
-      },
+        "internalType": "uint256[26]",
+        "name": "_pubSignals",
+        "type": "uint256[26]"
+      }
     ],
-    name: "verifyProof",
-    outputs: [
+    "name": "verifyProof",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-  },
+    "stateMutability": "view",
+    "type": "function"
+  }
 ];
