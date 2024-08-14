@@ -33,8 +33,13 @@
 ## About The Project
 
 [![Proof of Location Screen Shot][product-screenshot]](https://example.com)
+### The Problem
+Most companies ask for our geolocation to give us access to location-restricted content, give us optimized search results, offer products based in our location and more. This could be fine if only the datacenters werent always at risk of getting hacked
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+## Our Solution
+
+## The circuit
+You can find more about the circuit here: "LINK TO OTHER README"
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -45,7 +50,9 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 * [![Vite][Vite.js]][Vite-url]
 * [![React][React.js]][React-url]
 * [![Solidity][Solidity.js]][Solidity-url]
-* [![Circom][Circom.js]][Circom-url]
+* [![Typescript][Typescript.js]][Typescript-url]
+* [![Hardhat][Hardhat.js]][Hardhat-url]
+* [![SnarkJS][SnarkJS.js]][SnarkJS-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -77,7 +84,7 @@ To get a local copy up and running follow these simple example steps.
 
 
 <!-- ROADMAP -->
-## Roadmap
+## Future work / Considerations
 
 - [ ] Feature 1
 - [ ] Feature 2
@@ -127,3 +134,9 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Solidity-url]: https://soliditylang.org/
 [Circom.js]: https://img.shields.io/badge/Circom-000000?style=for-the-badge&logo=circom&logoColor=white
 [Circom-url]: https://docs.circom.io/
+[Typescript.js]: https://img.shields.io/badge/Typescript-000000?style=for-the-badge&logo=typescript&logoColor=white
+[Typescript-url]: https://www.typescriptlang.org/
+[Hardhat.js]: https://img.shields.io/badge/Hardhat-000000?style=for-the-badge&logo=hardhat&logoColor=white
+[Hardhat-url]: https://hardhat.org/
+[SnarkJs.js]: https://img.shields.io/badge/SnarkJs-000000?style=for-the-badge&logo=circom&logoColor=white
+[SnarkJs-url]: https://github.com/iden3/snarkjs
