@@ -13,10 +13,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/NathaliaBarreiros/ProofLocation">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="auto" height="120">
   </a>
 
-<h3 align="center">Proof of Location</h3>
+<h3 align="center">Don't pin us</h3>
 
   <p align="center">
     A circuit and front end demo for end users to proof their location (inside a predefined region) without revealing their position (lat, lng)
