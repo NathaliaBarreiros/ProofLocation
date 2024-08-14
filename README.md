@@ -73,11 +73,11 @@ This solution addresses the growing concern of location data misuse while still 
 
 ## The Circom Circuit
 
-You can find more about the circuit here: [LINK CIRCOM CIRCUIT README](https://github.com/NathaliaBarreiros/ProofLocation/tree/main/circuits)
+You can find more about the circuit here: [CIRCOM CIRCUIT README](https://github.com/NathaliaBarreiros/ProofLocation/tree/main/circuits)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Built With
+## Built With
 
 - [![Vite][Vite.js]][Vite-url]
 - [![React][React.js]][React-url]
@@ -156,7 +156,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 👩🏻‍💻 Nathalia Barreiros - [@NathBarreiros](https://twitter.com/NathBarreiros) - nathalia.barreirosf@gmail.com
 
-🧑🏻‍💻 Daniel Arroyo - [@daniel0ar](https://twitter.com/daniel0ar) - email@email_client.com
+🧑🏻‍💻 Daniel Arroyo - [@daniel0ar](https://twitter.com/daniel0ar) - danuel0ar@gmail.com
 
 Project Link: [https://github.com/NathaliaBarreiros/ProofLocation](https://github.com/NathaliaBarreiros/ProofLocation)
 
